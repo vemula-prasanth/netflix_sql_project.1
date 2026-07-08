@@ -1,0 +1,309 @@
+--netflix project
+
+CREATE TABLE netflix
+(
+    show_id VARCHAR(6),
+    type VARCHAR(10),
+    title VARCHAR(150),
+    director VARCHAR(208),
+    casts VARCHAR(1000),
+    country VARCHAR(150),
+    date_added VARCHAR(50),
+    release_year INT,
+    rating VARCHAR(10),
+    duration VARCHAR(15),
+    listed_in VARCHAR(100),
+    description VARCHAR(250)
+);
+
+drop table if exists netflix;
+
+select* from netflix;
+select count(*) as total_count from netflix;
+
+select
+      distinct type
+from netflix;	  
+
+
+--- 25 business problems
+
+--1. Count the number of Movies vs TV Shows
+
+select* from netflix;
+
+select 
+      type,
+	  count(*) as total_content
+from netflix
+group by type;
+	 
+
+-- 2. Find the most common rating for movies and TV shows
+
+SELECT
+     type,
+	 rating,
+	 COUNT(*) as total
+FROM netflix
+GROUP BY type, rating 
+ORDER BY COUNT(*) DESC;
+
+
+-- 3. List all movies released in a specific year (e.g., 2020)
+
+select * from netflix
+where 
+     type = 'Movie'
+	 and 
+	 release_year = 2020;
+
+ 
+
+
+---4. Find the top 5 countries with the most content on Netflix
+
+SELECT Country,
+         count(*) as total_content
+from netflix
+group by Country
+order by total_content desc 
+limit 5;
+
+
+
+
+ ---5. Identify the longest movie ?
+
+select * from netflix
+       where
+	   type = 'Movie' 
+	   and  
+	  duration =( select max (duration) from netflix );
+	         
+
+ 
+-- 6. Find content added in 2021
+
+select * from netflix 
+       where date_added >='2021-01-01';
+
+
+
+ 
+-- 7. Find all the movies/TV shows by director 'Rajiv Chilaka'!
+select * from netflix
+      where 
+	  director ilike '%Rajiv Chilaka%';
+   
+	
+ 
+ --8. List all TV shows with more than 5 seasons
+ 
+select * from  netflix
+       where type = 'TV Show'
+	   and 
+	   duration > '5 seasons';
+       
+
+
+ 
+ --9. Count the number of content items in each genre
+
+    select listed_in, 
+	       count(*) as total_content from netflix
+		   group by listed_in
+		   order by total_content desc ;
+
+ 
+ --10. Find the average release year for content produced in a specific country
+
+        select country,
+		       avg(release_year) as avg_year
+			   from netflix
+			   group by country;
+
+
+ 
+ --11. List all movies that are documentaries
+
+select * from netflix
+     where listed_in ilike '%Documentaries%';
+
+
+ 
+ --12. Find all content without a director
+ 
+select * from netflix
+    where director is NULL;
+
+
+ 
+ --13. Find how many movies actor 'Salman Khan' appeared in last 10 years!
+ 
+      select * from netflix
+             where Casts like '%Salman Khan%' 
+			 and 
+			 release_year > extract(year from current_date)-10;
+ 
+ --14. Find the top 10 actors who have appeared in the highest number of movies produced in
+
+      select casts, count(*) as total_movies
+	         from netflix
+			 group by casts
+	 order by total_movies desc 
+	 limit 10;
+
+
+ 
+ --15. Categorize the content based on the presence of the keywords 'kill' and 'violence' in the description field. Label content containing these keywords as 'Bad' and all other content as 'Good'. Count how many items fall into each category.
+
+
+select 
+     case
+	    when description like '%kill%'
+		      or
+		     description like '%violence%'
+			then 'bad'
+			else 'good'
+			end as category,
+			count(*) as total 
+			from netflix
+			group by category;
+
+
+--16.List all content that has 'International' in the genre
+
+      SELECT * FROM netflix 
+	        WHERE 
+			listed_in LIKE '%International%';
+			
+			
+   
+---17.Find the oldest movie
+
+        SELECT * FROM netflix
+		WHERE
+		type = 'Movie'
+		ORDER BY release_year ASC
+		LIMIT 1;
+
+
+---18.Count TV shows released after 2018
+
+   SELECT COUNT(*) FROM netflix
+        WHERE 
+		type = 'TV Show' AND release_year > 2018;
+
+
+---19.Find content where director and country are both missing
+
+   SELECT * FROM netflix
+         WHERE director IS NULL
+		 AND
+		 country IS NULL;
+
+---20.List movies with 'Comedy' genre
+
+	   SELECT * FROM netflix
+	   WHERE
+	   type = 'Movie' 
+	   AND
+	   listed_in LIKE '%Comedies%';
+   
+
+---21.Find the maximum release year present in the database
+
+       SELECT MAX(release_year) FROM netflix;
+
+
+
+---22.Group content by 'rating' and count how many items in each
+   
+   SELECT rating,
+   COUNT(*) 
+   FROM netflix
+   GROUP BY rating;
+   
+ 
+--23.Find all content added in the month of 'January'
+
+   SELECT * FROM netflix
+   WHERE date_added
+   LIKE '%January%';
+   
+   
+ --24.Count distinct countries present in the dataset
+
+   SELECT COUNT(DISTINCT country) FROM netflix;
+   
+   
+--25.List content where the description contains the word 'love'
+
+
+   SELECT * FROM netflix 
+   WHERE 
+   description ILIKE '%love%';
+   
+   
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
