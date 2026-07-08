@@ -2,3 +2,4 @@
 
 ![netflix logo](https://github.com/vemula-prasanth/netflix_sql_project.1/blob/main/netflix%20logo.jpeg)
 ##objective
+sql solutions.sql
