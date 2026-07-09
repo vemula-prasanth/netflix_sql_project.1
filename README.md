@@ -22,8 +22,8 @@
 '''sql
 drop table if exists netflix;
 '''
-
 '''sql
+
 CREATE TABLE netflix
 (
     show_id VARCHAR(6),
@@ -39,7 +39,7 @@ CREATE TABLE netflix
     listed_in VARCHAR(100),
     description VARCHAR(250)
 );
-	  '''
+'''
 
 
 ## 25 business problems and solutions 
