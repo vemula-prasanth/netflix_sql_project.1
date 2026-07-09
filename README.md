@@ -19,9 +19,9 @@
 ​Dataset Link:https://www.kaggle.com/datasets/shivamb/netflix-shows
 
 ## schema
-'''sql
+```sql
 drop table if exists netflix;
-'''
+```
 '''sql
 
 CREATE TABLE netflix
